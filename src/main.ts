@@ -7,18 +7,18 @@ const port = process.env.PORT || 3000;
 const name = process.env.NAME || 'API2';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+	const app = await NestFactory.create(AppModule);
 
-  const options = new DocumentBuilder()
-    .setTitle(`${name} Docs`)
-    .setDescription(`${name} Documentation`)
-    .setVersion('1.0')
-    .addBearerAuth()
-    .build();
-  const document = SwaggerModule.createDocument(app, options);
-  SwaggerModule.setup('', app, document);
+	const options = new DocumentBuilder()
+		.setTitle(`${name} Docs`)
+		.setDescription(`${name} Documentation`)
+		.setVersion('1.0.1')
+		.addBearerAuth()
+		.build();
+	const document = SwaggerModule.createDocument(app, options);
+	SwaggerModule.setup('', app, document);
 
-  await app.listen(port);
-  Logger.verbose(`Application is running on: ${port}`);
+	await app.listen(port);
+	Logger.verbose(`Application is running on: ${port}`);
 }
 bootstrap();
