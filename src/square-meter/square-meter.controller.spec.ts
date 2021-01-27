@@ -3,6 +3,7 @@ import { SquareMeterController } from './square-meter.controller';
 import { SquareMeterService } from './square-meter.service';
 import { HttpModule, Injectable } from '@nestjs/common';
 import { CalcDto } from './dto/calc.dto';
+import { Price } from './interfaces/price.interface';
 
 @Injectable()
 class MockSquareMeterService {
@@ -10,8 +11,12 @@ class MockSquareMeterService {
 		return 1;
 	}
 
-	calcSquareMeters(data: CalcDto) {
-		return this.getSquareMeterPrice() * data.meters;
+	calcSquareMeters(data: CalcDto): Price {
+		const price = this.getSquareMeterPrice();
+		return {
+			pricePerMeter: price,
+			priceToPay: price * data.meters,
+		};
 	}
 }
 

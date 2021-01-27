@@ -1,5 +1,6 @@
 import { Injectable, HttpService } from '@nestjs/common';
 import { CalcDto } from './dto/calc.dto';
+import { Price } from './interfaces/price.interface';
 
 const api1Host = process.env.API1_HOST;
 @Injectable()
@@ -12,8 +13,11 @@ export class SquareMeterService {
 		return request.data;
 	}
 
-	async calcSquareMeters(data: CalcDto): Promise<number> {
+	async calcSquareMeters(data: CalcDto): Promise<Price> {
 		const price = await this.getSquareMeterPrice();
-		return data.meters * price;
+		return {
+			pricePerMeter: price,
+			priceToPay: data.meters * price,
+		};
 	}
 }
